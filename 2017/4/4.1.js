@@ -1,8 +1,19 @@
-let input = "aa bb cc dd aa";
+let fs = require("fs");
 
-input = input.split(/\s/);
-let wordSet = new Set(input);
+let isPassphraseValid = (input) => {
+    input = input.split(/\s/);
+    let wordSet = new Set(input);
+    return wordSet.size == input.length ? true : false;
+}
 
-console.log(input);
-console.log(wordSet);
-console.log(wordSet.size == input.length ? "valid" : "not valid");
+let getNumberOfValidPassphrases = (passphrases) =>{
+    return passphrases.reduce((acc, val) => {
+        return acc + (isPassphraseValid(val) ? 1 : 0);
+    }, 0);
+}
+
+fs.readFile("captcha", "utf8", (err, data) => {
+    let passphrases = data.split("\n");
+    console.log(getNumberOfValidPassphrases(passphrases));
+});
+
