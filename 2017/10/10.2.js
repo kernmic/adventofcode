@@ -12,12 +12,11 @@ let rotateLeft = (array,n) => {
     return array;
 }
 
-require("fs").readFile("captcha", "utf8", (err, lengths) => {
-    lengths = lengths.split("").map(e => e.charCodeAt(0)).concat([17, 31, 73, 47, 23]);
+let calculateKnotHash = (input) => {
     let pointer = 0, skipSize = 0, numbers = _.range(256), block = 0;
-
+    input = input.split("").map(e => e.charCodeAt(0)).concat([17, 31, 73, 47, 23]);
     for(let i = 0;i<64;i++){
-        lengths.forEach((length) => {
+        input.forEach((length) => {
             numbers = rotateLeft(numbers,pointer);
             let subset = numbers.splice(0,length);
             subset.reverse();
@@ -29,7 +28,7 @@ require("fs").readFile("captcha", "utf8", (err, lengths) => {
             pointer = pointer%numbers.length;
         });
     }
-    let knotHash = numbers.reduce((acc,val,idx) => {
+    return numbers.reduce((acc,val,idx) => {
         if(!acc.length){
             acc[block] = val;
             return acc;
@@ -37,7 +36,14 @@ require("fs").readFile("captcha", "utf8", (err, lengths) => {
         if(idx%16==0)block++;
         acc[block] ^= val;
         return acc;
-    },[]).map(e => e.toString(16)).join("");
+    },[]).map(e => {
+        let hex = e.toString(16);
+        return (hex.length < 2) ? "0"+hex : hex;
+    }).join("");
+}
 
-    console.log(knotHash);
+require("fs").readFile("captcha", "utf8", (err, lengths) => {
+    console.log(calculateKnotHash(lengths));
 });
+
+module.exports.getKnotHash = calculateKnotHash;
