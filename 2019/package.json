@@ -1,0 +1,17 @@
+{
+  "name": "advent-of-code-2019",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "ker",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "@types/node": "^12.12.14"
+  }
+}
