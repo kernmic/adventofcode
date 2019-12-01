@@ -1,9 +1,14 @@
 import fs from 'fs'
 import path from 'path'
 
+export interface IAdventSolution {
+    result1?: string | number;
+    result2?: string | number;
+}
+
 export interface IAdventSolver {
 
-    solve: () => string;
+    solve: () => IAdventSolution;
 
 }
 
@@ -13,6 +18,10 @@ export class AdventSolver {
 
     constructor(directory: string){
         this.input = fs.readFileSync(path.resolve(directory, 'input.txt'), 'utf8');
+    }
+
+    protected getLineInputs(){
+        return this.input.split('\n');
     }
 
 }
