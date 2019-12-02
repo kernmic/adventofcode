@@ -1,4 +1,4 @@
-import { AdventSolver, IAdventSolution } from "../0_Util/solver";
+import { AdventSolver, IAdventSolution } from "../0__Util/solver";
 
 export class TyrannyOfRocketEquationSolver extends AdventSolver {
     

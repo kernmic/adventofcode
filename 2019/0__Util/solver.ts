@@ -21,7 +21,11 @@ export class AdventSolver {
     }
 
     protected getLineInputs(){
-        return this.input.split('\n');
+        return this.getSeparatedInputs('\n');
+    }
+
+    protected getSeparatedInputs(separator:string = ','){
+        return this.input.split(separator);
     }
 
 }
