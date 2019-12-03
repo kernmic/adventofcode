@@ -1,5 +1,5 @@
 Arguments: 
-  /home/ker/.nvm/versions/node/v10.16.2/bin/node /usr/local/bin/yarn start
+  /home/ker/.nvm/versions/node/v10.16.2/bin/node /usr/local/bin/yarn build
 
 PATH: 
   /home/ker/.nvm/versions/node/v10.16.2/bin:/home/ker/bin:/home/ker/.local/bin:/opt/intellij/idea-IU-191.7479.19/bin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/maven/bin:/snap/bin:/home/ker/jpm/bin:/home/ker/Android/Sdk/emulator:/home/ker/Android/Sdk/tools:/home/ker/Android/Sdk/tools/bin:/home/ker/Android/Sdk/platform-tools:/home/ker/jpm/bin:/home/ker/Android/Sdk/emulator:/home/ker/Android/Sdk/tools:/home/ker/Android/Sdk/tools/bin:/home/ker/Android/Sdk/platform-tools:/home/ker/jpm/bin
@@ -52,9 +52,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 1
+  Exit code: 2
   Command: sh
-  Arguments: -c node ./index.js
+  Arguments: -c tsc
   Directory: /home/ker/Development/adventofcode/2019
   Output:
   
