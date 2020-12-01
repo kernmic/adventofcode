@@ -1,0 +1,16 @@
+{
+  "name": "adventofcode2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll",
+    "gen": "node component-generator/component-generator.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "handlebars": "^4.7.6",
+    "jest": "^26.6.3"
+  }
+}
