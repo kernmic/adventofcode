@@ -1,9 +1,8 @@
-const { {{toLowerCase componentName}} } = require("./{{componentFileName}}");
+const { passportProcessing } = require("./passport-processing");
 const { parseInput } = require("../0_util/input-parser");
 let path = require("path");
 
 test("solves correctly", () => {
   const input = parseInput(path.resolve(__dirname, "test1.txt"));
-  console.log(input);
-  expect({{toLowerCase componentName}}(input)).toBe(123);
+  expect(passportProcessing(input)).toBe(2);
 });
