@@ -1,4 +1,3 @@
-const {detectRowAndSeat} = require("./detect-row-and-seat");
 const {getSeatId} = require("./get-seat-id");
 const { parseInput } = require("../0_util/input-parser");
 
