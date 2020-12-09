@@ -1,3 +1,4 @@
+"use strict";
 const parseNumbers = input => input.map(x => +x);
 
 const checkWindowUntilAnyTwoInPreambleWindowResolvesToSum = (preambleWindow,numbers,idx) => {
@@ -29,7 +30,6 @@ const part1 = (input, preambleWindow) => {
 
 "use strict";
 function findContiguousSums (numbers,searchSum,idx = 0,candidateWindow = 2) {
-
   let sum = 0;
   for(let i = idx;i<idx+candidateWindow;i++){
     sum += numbers[i];
@@ -40,13 +40,18 @@ function findContiguousSums (numbers,searchSum,idx = 0,candidateWindow = 2) {
   if(sum > searchSum){
     return findContiguousSums(numbers,searchSum,idx + 1,2);
   }
-  // console.log({
-  //   searchSum,
-  //   idx,
-  //   candidateWindow
-  // })
   return findContiguousSums(numbers,searchSum,idx,candidateWindow + 1);
 }
+
+/**
+ * Must be run with Tail Call Optimizations enabled
+ * This feature is only available in Node 6.5.0 - 7.10.0
+ * The code to run is `node --harmony solve`
+ *
+ * Further information:
+ * https://medium.com/javascript-in-plain-english/javascript-optimizations-tail-call-optimization-tco-471b4f8e4f37
+ *
+ */
 
 "use strict";
 function part2(input, sum){
@@ -54,6 +59,7 @@ function part2(input, sum){
   const contiguousSums = findContiguousSums(numbers,sum).sort((a,b)=>a-b);
   return contiguousSums[0] + contiguousSums[contiguousSums.length - 1];
 };
+
 
 exports.part1 = part1;
 exports.part2 = part2;
