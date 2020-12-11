@@ -22,16 +22,35 @@ const part1 = (input) => {
   return Object.values(differences).reduce((acc,val)=>acc*val,1);
 };
 
-const getNumberOfPaths = (adapters, idx = 0, paths = 0) => {
-  return 2
+/**
+ * The key is this memoization technique explained here
+ * https://www.youtube.com/watch?v=cE88K2kFZn0
+ */
+let memoizedPathsFrom = {};
+const getNumberOfPaths = (adapters, idx = 0) => {
+  if(idx === adapters.length - 1){
+    return 1;
+  }
+  if(memoizedPathsFrom[idx] !== undefined){
+    return memoizedPathsFrom[idx];
+  }
+  const adapter = adapters[idx];
+  let numPaths = 0;
+  for(let i = idx+1;i<=adapters.length;i++){
+    if(adapters[i]-adapter<=3){
+      numPaths += getNumberOfPaths(adapters,i)
+    }
+  }
+  memoizedPathsFrom[idx] = numPaths;
+  return numPaths;
 }
 
 const part2 = input => {
   const numbers = parseNumbers(input);
   const builtInAdapter = getBuiltInAdapter(numbers);
-  const adapters = [...numbers,builtInAdapter];
-  console.log(getNumberOfPaths(adapters))
-
+  const adapters = [0].concat([...numbers,builtInAdapter]);
+  memoizedPathsFrom={};//reset memo
+  return getNumberOfPaths(adapters);
 };
 
 exports.part1 = part1;
