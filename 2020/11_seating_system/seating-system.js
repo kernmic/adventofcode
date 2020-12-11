@@ -1,7 +1,10 @@
 const occupyThreshold = 0;
 const becomeEmptyThreshold = 4;
+const becomeEmptyThresholdPart2 = 5;
 const empty = "L";
 const occupied = "#";
+
+
 
 const getNodeRows = input => {
   return input
@@ -19,10 +22,7 @@ const getNodeRows = input => {
       })))
 }
 
-const hasChanged = (nodesBefore, nodesNow) =>
-    JSON.stringify(nodesBefore) === JSON.stringify(nodesNow);
-
-const getNextIteration = nodeRows => nodeRows
+const getNextIterationPart1 = nodeRows => nodeRows
     .map(row => row.map((seat) => {
       const dirs = Object.keys(seat).filter(x => x !== "c");
       const isEmpty = seat.c === empty;
@@ -45,7 +45,59 @@ const part1 = (input) => {
 
   while(true){
     const nodeRows = getNodeRows(curr);
-    curr = getNextIteration(nodeRows);
+    curr = getNextIterationPart1(nodeRows);
+    const currentHash = hash(curr);
+    if(last === currentHash){
+      break;
+    }
+    last = currentHash;
+  }
+
+  return occupiedSeats(curr)
+};
+
+const hasOccupiedSeatInSightInDir = (nodeRows,rowNum,seatNum,dir) => {
+    const seat = nodeRows[rowNum][seatNum];
+    if(seat[dir] === occupied){
+        return true;
+    }
+    if(seat[dir] === undefined || seat[dir] === empty){
+        return false;
+    }
+
+    return {
+        t: hasOccupiedSeatInSightInDir.bind(null,nodeRows,rowNum-1,seatNum,"t"),
+        tl: hasOccupiedSeatInSightInDir.bind(null,nodeRows,rowNum-1,seatNum-1,"tl"),
+        tr: hasOccupiedSeatInSightInDir.bind(null,nodeRows,rowNum-1,seatNum+1,"tr"),
+        l: hasOccupiedSeatInSightInDir.bind(null,nodeRows,rowNum,seatNum-1,"l"),
+        r: hasOccupiedSeatInSightInDir.bind(null,nodeRows,rowNum,seatNum+1,"r"),
+        b: hasOccupiedSeatInSightInDir.bind(null,nodeRows,rowNum + 1,seatNum,"b"),
+        bl: hasOccupiedSeatInSightInDir.bind(null,nodeRows,rowNum + 1,seatNum - 1,"bl"),
+        br: hasOccupiedSeatInSightInDir.bind(null,nodeRows,rowNum + 1,seatNum + 1,"br"),
+    }[dir]()
+}
+
+const getNextIterationPart2 = nodeRows => nodeRows
+    .map((row,rowNum) => row.map((seat,seatNum) => {
+      const dirs = Object.keys(seat).filter(x => x !== "c");
+      const isEmpty = seat.c === empty;
+      const isOccupied = seat.c === occupied;
+      const occupiedAdjacents = dirs.reduce((acc,dir)=>hasOccupiedSeatInSightInDir(nodeRows,rowNum,seatNum,dir) ? acc + 1 : acc,0);
+      if(occupiedAdjacents <= occupyThreshold && isEmpty){
+        return occupied;
+      }
+      if(occupiedAdjacents >= becomeEmptyThresholdPart2 && isOccupied){
+        return empty;
+      }
+      return seat.c
+    }).join(""));
+
+const part2 = (input) => {
+  let last = "";
+  let curr = input;
+
+  while(true){
+    curr = getNextIterationPart2(getNodeRows(curr));
     const currentHash = hash(curr);
     if(last === currentHash){
       break;
@@ -57,3 +109,4 @@ const part1 = (input) => {
 };
 
 exports.part1 = part1;
+exports.part2 = part2;
