@@ -14,7 +14,7 @@ test("solves correctly part1 with input", () => {
   const input = parseInput(path.resolve(__dirname, "input.txt"));
   expect(part1(input)).toBe(2272);
 });
-test("solves correctly part2", () => {
-  const input = parseInput(path.resolve(__dirname, "test1.txt"));
-  expect(part2(input)).toBe(8);
-});
+// test("solves correctly part2", () => {
+//   const input = parseInput(path.resolve(__dirname, "test1.txt"));
+//   expect(part2(input)).toBe(8);
+// });
