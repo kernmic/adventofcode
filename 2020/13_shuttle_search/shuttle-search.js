@@ -16,23 +16,14 @@ const part1 = (input) => {
   return laneId * wait;
 };
 
-// const getOffsetForTimestamp = (t, laneIds) => {
-//     return laneIds
-//         .map(laneId => isNaN(+laneId) ? laneId : t%laneId)
-//         .map((rest,id) => {
-//             if()
-//             console.log(id);
-//             return rest === 0 ? 0 : isNaN(+rest) ? id : laneIds[id] - rest;
-//         })
-// }
-
-const   getOffsetForTimestamp = (t, laneIds) => {
+const getOffsetForTimestamp = (t, laneIds) => {
     return laneIds
         .map((laneId,id) => {
             if(isNaN(+laneId)){
                 return id;
             }
-            const rest = t%laneId ? (laneIds[id] - (t%laneId)) : 0;
+            const mod = t%laneId;
+            const rest = mod ? (laneIds[id] - mod) : 0;
             if(rest !== id){
                 throw new Error("not ascending");
             }
@@ -42,17 +33,16 @@ const   getOffsetForTimestamp = (t, laneIds) => {
 
 const part2 = (input) => {
     const laneIds = input[1].split(",").map(x => isNaN(+x) ? x : +x);
-    let i = laneIds[0];
-    while(true){
-        try{
-            let b = i%20;
-            getOffsetForTimestamp(b,laneIds);
-            return i;
-        } catch(e){
-        } finally {
-            i+=laneIds[0];
+    console.log(laneIds.map((lane,idx) => {
+        if(isNaN(lane)){
+            return undefined;
         }
-    }
+        return {
+            rem: lane-idx,
+            mod: lane,
+        };
+    }).filter(x=>!!x));
+    // used https://www.dcode.fr/chinese-remainder with the output. lol.
 }
 
 exports.getOffsetForTimestamp = getOffsetForTimestamp;
