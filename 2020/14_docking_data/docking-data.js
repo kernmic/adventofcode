@@ -44,14 +44,19 @@ const applyMaskPart2 = (mask,val) => {
   return value.or(orMask);
 }
 
+const replaceAt = (str,idx,repl) => str.substring(0, idx) + repl + str.substring(idx + 1);
+const pad = (str,length,val) => `${new Array(length-str.length).fill(val).join("")}${str}`
 const getPossibleLocations = (mask,val) => {
-  const nrOfX = mask.split("X").length - 1;
-  const nrOfCombs = parseInt(new Array(nrOfX).fill("1").join(""),2);
-  const combs = [val.toString(2)];
-  for(let i = 0;i<=nrOfCombs;i++){
-    combs.push(i.toString(2));
+  const binaryValue = pad(applyMaskPart2(mask,val).toString(2),mask.length,"0");
+  const idxsOfX = mask.split("").map((x,idx) => x === "X" ? idx : undefined).filter(x => x !== undefined);
+  const combs = [];
+  for(let i = 0;i < Math.pow(2,idxsOfX.length);i++){
+    const length = (Math.pow(2,idxsOfX.length) - 1).toString(2).length;
+    const padded = pad(i.toString(2),length,"0").split("")
+    const reduced = padded.reduce((acc,val,idx) => replaceAt(acc,idxsOfX[idx],val), binaryValue);
+    combs.push(reduced);
   }
-  return combs;
+  return combs.map(comb => +Long.fromString(comb,true,2).toString());
 }
 
 
@@ -66,15 +71,16 @@ const part2 = (input) => {
       }
     }
     const mem = parseMemoryLocation(instr);
-    const memAfterMask = applyMaskPart2(mask,mem);
-    const possibleLocations = getPossibleLocations(mask,memAfterMask);
-    console.log({ mem,memAfterMask: memAfterMask.toString(), bin: memAfterMask.toString(2), possibleLocations});
+    const possibleLocations = getPossibleLocations(mask,mem);
     return {
       acc,
       mask,
       memory: {
         ...memory,
-        [mem]: +val
+        ...possibleLocations.reduce((locAcc,currMem) => ({
+          ...locAcc,
+          [currMem]: +val
+        }), {})
       }
     }
   }, {
@@ -82,9 +88,9 @@ const part2 = (input) => {
     acc: 0,
     memory: {}
   })
-  console.log(reduced)
   return +Object.values(reduced.memory).reduce((acc,val)=>acc.add(val),Long.fromInt(0)).toString()
 };
 
+exports.getPossibleLocations = getPossibleLocations;
 exports.part1 = part1;
 exports.part2 = part2;
