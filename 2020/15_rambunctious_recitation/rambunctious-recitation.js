@@ -1,19 +1,19 @@
 const getNthNumberSpoken = (nthNr, startingNrs) => {
-  let idxMap = startingNrs.reduce((acc,nr,idx)=>({
-    ...acc,
-    [nr]: [idx]
-  }),{});
+  let idxMap = new Map();
+
+  startingNrs.forEach((nr,idx) => idxMap.set(nr,[idx]))
+
   const numbers = [...startingNrs];
   console.time('iteration')
   for(let i=startingNrs.length;i<nthNr;i++){
     const latestNumber = numbers.pop();
-    const [oldIdx,recentIdx] = idxMap[latestNumber] || [];
+    const [oldIdx,recentIdx] = idxMap.get(latestNumber) || [];
     const currentNumber = !recentIdx ? 0 : (recentIdx - oldIdx)
-    const [oldIdxOfCurrentNumber,recentIdxOfCurrentNumber] = idxMap[currentNumber] || [];
+    const [oldIdxOfCurrentNumber,recentIdxOfCurrentNumber] = idxMap.get(currentNumber) || [];
     const newOldIndex = recentIdxOfCurrentNumber || oldIdxOfCurrentNumber;
-    idxMap[currentNumber] = newOldIndex !== undefined ? [newOldIndex,i] : [i];
+    idxMap.set(currentNumber,newOldIndex !== undefined ? [newOldIndex,i] : [i])
     numbers.push(currentNumber);
-    if(i%3000000===0){
+    if(i%(nthNr/10)===0){
       console.timeEnd('iteration')
       console.time(`iteration`)
     }
