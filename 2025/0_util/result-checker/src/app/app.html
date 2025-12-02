@@ -1,0 +1,18 @@
+<main>
+
+  <div class="p-12">
+    Output:<br/>
+    {{response()}}
+  </div>
+  <div class="p-12">
+    Input:
+    <textarea placeholder="Puzzle Input..." class="border w-full rounded-md h-50 p-2"
+              [field]="inputForm.input"></textarea>
+    <button (click)="onSubmit()" class="bg-black text-white p-2 font-bold rounded-md cursor-pointer">Submit</button>
+  </div>
+
+
+  <app-handlers [selectedHandlerId]="selectedHandler()?.id || null" (handlerSelected)="selectedHandler.set($event)"/>
+</main>
+
+<router-outlet/>

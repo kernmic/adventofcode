@@ -1,0 +1,16 @@
+@if (handlersResource.hasValue()) {
+  @for (handler of handlersResource.value(); track handler.id) {
+    <div class="px-6 py-1">
+      <div class="border rounded-md p-2 cursor-pointer"
+           (click)="handlerSelected.emit(handler)"
+           [class.bg-pink-500]="selectedHandlerId() === handler.id"
+           [class.text-white]="selectedHandlerId() === handler.id"
+           [class.font-bold]="selectedHandlerId() === handler.id">
+        {{ handler.name }}</div>
+    </div>
+  }
+} @else {
+  <div>value</div>
+  {{ handlersResource.status() }}
+  {{ handlersResource.value() }}
+}
