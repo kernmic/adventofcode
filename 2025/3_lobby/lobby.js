@@ -16,8 +16,31 @@ export const findLargestJoltage = (batteryBank) => {
     return +[leftValue,rightValue].join('')
 }
 
+export const findLargestJoltage12 = (batteryBank) => {
+    let index = -1;
+    const foundValues = [];
+
+    while(foundValues.length < 12){
+        let value = 0;
+        for(let i = index + 1;i<batteryBank.length - (12 - foundValues.length - 1);i++){
+            if(+batteryBank[i] > value){
+                value = +batteryBank[i];
+                index = i
+            }
+        }
+        foundValues.push(value)
+    }
+    return +foundValues.join('')
+}
+
 export const lobby1 = async (request, reply) => {
     return request.body.split('\n')
         .map(findLargestJoltage)
+        .reduce((acc,val) => acc + val, 0)
+}
+
+export const lobby2 = async (request, reply) => {
+    return request.body.split('\n')
+        .map(findLargestJoltage12)
         .reduce((acc,val) => acc + val, 0)
 }
