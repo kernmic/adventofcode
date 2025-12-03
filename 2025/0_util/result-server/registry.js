@@ -1,6 +1,7 @@
 import {secretEntrance1} from "../../1_secret_entrance/secret_entrance_1.js";
 import {secretEntrance2} from "../../1_secret_entrance/secret_entrance_2.js";
 import {giftShop1} from "../../2_gift_shop/gift_shop_1.js";
+import {lobby1} from "../../3_lobby/lobby.js";
 
 
 export const registry = [
@@ -18,5 +19,10 @@ export const registry = [
         name: 'Day 2: Gift Shop',
         handler: giftShop1,
         url: '/day2_gift_shop'
+    },
+    {
+        name: 'Day 3: Lobby',
+        handler: lobby1,
+        url: '/day3_lobby'
     }
 ];
