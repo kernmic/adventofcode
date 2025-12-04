@@ -2,6 +2,7 @@ import {secretEntrance1} from "../../1_secret_entrance/secret_entrance_1.js";
 import {secretEntrance2} from "../../1_secret_entrance/secret_entrance_2.js";
 import {giftShop1} from "../../2_gift_shop/gift_shop_1.js";
 import {lobby1, lobby2} from "../../3_lobby/lobby.js";
+import {findLocationsWithLessThan4Adjacents} from "../../4_printing_department/printing_department.js";
 
 
 export const registry = [
@@ -29,5 +30,10 @@ export const registry = [
         name: 'Day 3: Lobby. Part Two',
         handler: lobby2,
         url: '/day3_lobby_2'
+    },
+    {
+        name: 'Day 4: Printing Department',
+        handler: findLocationsWithLessThan4Adjacents,
+        url: '/day4_1'
     }
 ];
