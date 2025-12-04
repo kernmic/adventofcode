@@ -1,6 +1,6 @@
 import {expect, describe, test} from 'vitest'
 
-import {findLocationsWithLessThan4Adjacents} from "./printing_department";
+import {findLocationsWithLessThan4Adjacents, removePaperrolls} from "./printing_department";
 
 const xyz = `..@@.@@@@.
 @@@.@.@.@@
@@ -19,4 +19,10 @@ describe('printing department', () => {
             body: xyz
         }))).toBe(13)
     })
+    test('should remove correct amount', async ()=> {
+        expect((await removePaperrolls({
+            body: xyz
+        }))).toBe(43)
+    })
+
 })
