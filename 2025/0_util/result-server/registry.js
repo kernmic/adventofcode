@@ -6,7 +6,7 @@ import {
     findLocationsWithLessThan4Adjacents,
     removePaperrolls
 } from "../../4_printing_department/printing_department.js";
-import {countFreshIngredients} from "../../5_cafeteria/cafeteria.js";
+import {countFreshIngredients, countMaxNrOfFreshIngredients} from "../../5_cafeteria/cafeteria.js";
 
 
 export const registry = [
@@ -49,5 +49,10 @@ export const registry = [
         name: 'Day 5: Cafeteria',
         handler: countFreshIngredients,
         url: '/day5_1'
+    },
+    {
+        name: 'Day 5: Cafeteria. Part 2',
+        handler: countMaxNrOfFreshIngredients,
+        url: '/day5_2'
     }
 ];

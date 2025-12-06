@@ -1,5 +1,5 @@
 import {expect, describe, test} from 'vitest'
-import {countFreshIngredients} from "./cafeteria";
+import {countFreshIngredients, countMaxNrOfFreshIngredients} from "./cafeteria";
 
 const input = `3-5
 10-14
@@ -19,5 +19,11 @@ describe("cafeteria", () => {
             body: input
         });
         expect(result).toBe(3);
+    })
+    test('should correctly count max nr of fresh ids', async () => {
+        const result = await countMaxNrOfFreshIngredients({
+            body: input
+        });
+        expect(result).toBe(14);
     })
 });
