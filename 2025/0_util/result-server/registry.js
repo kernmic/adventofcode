@@ -6,6 +6,7 @@ import {
     findLocationsWithLessThan4Adjacents,
     removePaperrolls
 } from "../../4_printing_department/printing_department.js";
+import {countFreshIngredients} from "../../5_cafeteria/cafeteria.js";
 
 
 export const registry = [
@@ -43,5 +44,10 @@ export const registry = [
         name: 'Day 4: Printing Department. Part Two',
         handler: removePaperrolls,
         url: '/day4_2'
+    },
+    {
+        name: 'Day 5: Cafeteria',
+        handler: countFreshIngredients,
+        url: '/day5_1'
     }
 ];
