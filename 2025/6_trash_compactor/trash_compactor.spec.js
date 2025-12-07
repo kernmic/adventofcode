@@ -1,6 +1,6 @@
 import {expect, describe, test} from 'vitest'
 import {countFreshIngredients, countMaxNrOfFreshIngredients} from "../5_cafeteria/cafeteria";
-import {findGrandTotal} from "./trash_compactor";
+import {findGrandTotal, findGrandTotalCephalopodMath} from "./trash_compactor";
 
 const input = `123 328  51 64 
  45 64  387 23 
@@ -13,5 +13,11 @@ describe("trash compactor", () => {
             body: input
         });
         expect(result).toBe(4277556);
+    })
+    test('should correctly calculate grand total part 2', async () => {
+        const result = await findGrandTotalCephalopodMath({
+            body: input
+        });
+        expect(result).toBe(3263827);
     })
 });

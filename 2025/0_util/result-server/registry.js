@@ -7,7 +7,7 @@ import {
     removePaperrolls
 } from "../../4_printing_department/printing_department.js";
 import {countFreshIngredients, countMaxNrOfFreshIngredients} from "../../5_cafeteria/cafeteria.js";
-import {findGrandTotal} from "../../6_trash_compactor/trash_compactor.js";
+import {findGrandTotal, findGrandTotalCephalopodMath} from "../../6_trash_compactor/trash_compactor.js";
 
 
 export const registry = [
@@ -60,5 +60,10 @@ export const registry = [
         name: 'Day 6: Trash compactor',
         handler: findGrandTotal,
         url: '/day6_1'
+    },
+    {
+        name: 'Day 6: Trash compactor. Part Two.',
+        handler: findGrandTotalCephalopodMath,
+        url: '/day6_2'
     }
 ];
