@@ -162,7 +162,7 @@ const realInput = `.............................................................
 const request = { body: input }
 
 describe("laboratories", () => {
-    test('should correctly calculate grand total', async () => {
+    test.only('should correctly calculate grand total', async () => {
         const result = await countSplits(request);
         expect(result).toBe(21);
     })

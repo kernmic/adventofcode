@@ -1,13 +1,14 @@
 const START = 'S'
 const SPLITTER = '^'
 const seenCoords = new Map();
+let calls = 0;
 
 const moveDownward = (y, x, grid) => {
     const key = [y,x].join(',');
-    if(seenCoords.has(key)){
-        return 0;
-    }
-    seenCoords.set(key, true);
+    // if(seenCoords.has(key)){
+    //     return 0;
+    // }
+    // seenCoords.set(key, true);
     if(grid[y]?.[x] === undefined) {
         return 0;
     }
@@ -20,5 +21,7 @@ const moveDownward = (y, x, grid) => {
 export const countSplits = async (request) => {
     const grid = request.body.split('\n').map(line => line.split(''));
     const startX = grid[0].findIndex(val => val === START)
-    return moveDownward(0, startX, grid)
+    const result = moveDownward(0, startX, grid)
+    console.log(calls)
+    return result;
 }
